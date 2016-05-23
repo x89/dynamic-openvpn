@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 
-import boto3
 import argparse
-import time
+import boto3
 import os
+import signal
 import subprocess
+import time
 
 parser = argparse.ArgumentParser(description='Spin up an EC2 OpenVPN instance.')
 parser.add_argument('--ami', help="AMI Image", default="ami-2c37845f")
@@ -46,12 +47,17 @@ public_ip = response['Reservations'][0]['Instances'][0]['PublicIpAddress']
 
 print("Public IP for {0} is {1}".format(instance_id, public_ip))
 
-try:
-    subprocess.call(['zsh', 'openvpn.zsh', public_ip, str(args.port)])
-except KeyboardInterrupt:
+def kill_instance(*args, **kwargs):
     kill_ret = client.terminate_instances(
        InstanceIds=[
            instance_id
        ]
     )
     print("Instance {0} terminated.".format(instance_id))
+
+signal.signal(signal.SIGTERM, kill_instance)
+
+try:
+    subprocess.call(['zsh', '{0}/openvpn.zsh'.format(os.path.dirname(os.path.realpath(__file__))), public_ip, str(args.port)])
+except KeyboardInterrupt:
+    kill_instance
