@@ -8,9 +8,9 @@ import subprocess
 import time
 
 parser = argparse.ArgumentParser(description='Spin up an EC2 OpenVPN instance.')
-parser.add_argument('--ami', help="AMI Image", default="ami-2c37845f")
+parser.add_argument('--ami', help="AMI Image", default="ami-c9dc4fba")
 parser.add_argument('--sg', help="Security Group ID", default="sg-cb0669af")
-parser.add_argument('--port', help="OpenVPN Port", default=1250)
+parser.add_argument('--port', help="OpenVPN Port", default=443)
 args = parser.parse_args()
 
 client = boto3.client('ec2')

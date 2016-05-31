@@ -11,4 +11,4 @@ if [[ $? != 0 ]]; then
 	exit
 fi
 
-sudo openvpn --remote $1 $2 --config aws2.conf
+sudo openvpn --remote $1 $2 --config /home/napalm/dynamic-vpn/aws2.conf
