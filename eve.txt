@@ -1,0 +1,12 @@
+# http://bgp.he.net/AS35834#_prefixes
+# 87.237.32.0/22
+# 87.237.32.0/23
+# 87.237.34.0/23
+# 87.237.36.0/24
+# 87.237.38.0/23
+
+list route '87.237.32.0 255.255.252.0 net_gateway'
+list route '87.237.32.0 255.255.254.0 net_gateway'
+list route '87.237.34.0 255.255.254.0 net_gateway'
+list route '87.237.36.0 255.255.255.0 net_gateway'
+list route '87.237.38.0 255.255.254.0 net_gateway'
